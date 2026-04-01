@@ -12,7 +12,7 @@ app.use(express.json());
 
 // Routes
 const filmsRoute = require('./routes/films');
-app.use('/films', filmsRoute);
+app.use('/', filmsRoute);
 
 // Basic health-check route
 app.get('/', (req, res) => {

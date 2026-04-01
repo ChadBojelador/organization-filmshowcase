@@ -11,6 +11,12 @@ const filmSchema = new mongoose.Schema({
   members: [memberSchema],
   videoLink: { type: String, required: true },
   posterLink: { type: String, required: true },
+  moderationStatus: {
+    type: String,
+    enum: ['pending', 'approved', 'rejected'],
+    default: 'pending'
+  },
+  moderatedAt: { type: Date },
   createdAt: { type: Date, default: Date.now }
 });
 
