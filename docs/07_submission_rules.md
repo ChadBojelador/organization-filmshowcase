@@ -9,4 +9,6 @@
   - posterLink
 - Convert Google Drive links before storing
 - createdAt: automatic timestamp
-- Public gallery: all films visible to everyone
+- New submissions default to pending moderation
+- Admin can approve or reject pending films
+- Public gallery: only approved films visible to everyone

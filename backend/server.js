@@ -12,7 +12,11 @@ app.use(express.json());
 
 // Routes
 const filmsRoute = require('./routes/films');
-app.use('/', filmsRoute);
+const authRoute = require('./routes/auth');
+const submissionRoute = require('./routes/submission');
+app.use('/films', filmsRoute);
+app.use('/', authRoute);
+app.use('/', submissionRoute);
 
 // Basic health-check route
 app.get('/', (req, res) => {
