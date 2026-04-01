@@ -39,14 +39,12 @@ const sampleFilms = [
 
 function PublicGallery() {
   return (
-    <main className="min-h-screen bg-slate-100 py-6 sm:py-8">
-      <header className="mx-auto mb-4 w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
-          Short Film Gallery
-        </h1>
-        <p className="mt-1 text-sm text-slate-600 sm:text-base">
-          Public submissions from registered directors.
-        </p>
+    <main className="gallery-main">
+      <header className="gallery-header">
+        <div className="container">
+          <h1>Short Film Gallery</h1>
+          <p className="text-secondary">Public submissions from registered directors.</p>
+        </div>
       </header>
 
       <FilmGrid films={sampleFilms} />

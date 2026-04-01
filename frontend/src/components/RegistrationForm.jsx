@@ -1,9 +1,12 @@
 import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import './RegistrationForm.css';
 
 const emptyMember = { name: '', role: '' };
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
 export default function RegistrationForm() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     teamName: '',
     email: '',
@@ -59,13 +62,9 @@ export default function RegistrationForm() {
       }
 
       localStorage.setItem('token', data.token);
-      setSuccess('Registration successful.');
-      setForm({
-        teamName: '',
-        email: '',
-        password: '',
-        members: [{ ...emptyMember }]
-      });
+      localStorage.setItem('director', JSON.stringify(data.user));
+      setSuccess('Registration successful! Redirecting...');
+      setTimeout(() => navigate('/submit', { replace: true }), 1500);
     } catch (submitError) {
       setError(submitError.message);
     } finally {
@@ -74,63 +73,99 @@ export default function RegistrationForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="registration-form card">
       <h2>Director Registration</h2>
 
-      <input
-        name="teamName"
-        placeholder="Team Name"
-        value={form.teamName}
-        onChange={handleChange}
-        required
-      />
+      {error && <div className="alert alert-error">{error}</div>}
+      {success && <div className="alert alert-success">{success}</div>}
 
-      <input
-        name="email"
-        type="email"
-        placeholder="Email"
-        value={form.email}
-        onChange={handleChange}
-        required
-      />
+      <div className="form-group">
+        <label htmlFor="teamName">Team Name *</label>
+        <input
+          id="teamName"
+          name="teamName"
+          placeholder="Your Film Production Team"
+          value={form.teamName}
+          onChange={handleChange}
+          required
+        />
+      </div>
 
-      <input
-        name="password"
-        type="password"
-        placeholder="Password"
-        value={form.password}
-        onChange={handleChange}
-        required
-      />
+      <div className="form-group">
+        <label htmlFor="email">Email *</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="your@email.com"
+          value={form.email}
+          onChange={handleChange}
+          required
+        />
+      </div>
 
-      <h3>Members</h3>
-      {form.members.map((member, index) => (
-        <div key={index}>
-          <input
-            placeholder="Member Name"
-            value={member.name}
-            onChange={(event) => handleMemberChange(index, 'name', event.target.value)}
-            required
-          />
-          <input
-            placeholder="Role"
-            value={member.role}
-            onChange={(event) => handleMemberChange(index, 'role', event.target.value)}
-            required
-          />
-          <button type="button" onClick={() => removeMember(index)}>
-            Remove
-          </button>
+      <div className="form-group">
+        <label htmlFor="password">Password *</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          placeholder="••••••••"
+          value={form.password}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      <div className="form-section">
+        <h3>Team Members</h3>
+        <div className="members-list">
+          {form.members.map((member, index) => (
+            <div key={index} className="member-input-group">
+              <div className="form-group">
+                <label htmlFor={`member-name-${index}`}>Name</label>
+                <input
+                  id={`member-name-${index}`}
+                  placeholder="Member Name"
+                  value={member.name}
+                  onChange={(event) => handleMemberChange(index, 'name', event.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor={`member-role-${index}`}>Role</label>
+                <input
+                  id={`member-role-${index}`}
+                  placeholder="e.g., Director, Cinematographer"
+                  value={member.role}
+                  onChange={(event) => handleMemberChange(index, 'role', event.target.value)}
+                  required
+                />
+              </div>
+              {form.members.length > 1 && (
+                <button 
+                  type="button" 
+                  onClick={() => removeMember(index)}
+                  className="btn-remove"
+                >
+                  Remove
+                </button>
+              )}
+            </div>
+          ))}
         </div>
-      ))}
+        <button type="button" onClick={addMember} className="btn btn-outline btn-sm">
+          + Add Member
+        </button>
+      </div>
 
-      <button type="button" onClick={addMember}>Add Member</button>
-      <button type="submit" disabled={loading}>
-        {loading ? 'Registering...' : 'Register'}
+      <button type="submit" disabled={loading} className="btn btn-primary" style={{ width: '100%' }}>
+        {loading ? 'Registering...' : 'Create Account'}
       </button>
 
-      {error && <p>{error}</p>}
-      {success && <p>{success}</p>}
+      <p className="text-center text-secondary mt-2">
+        Already have an account? <Link to="/login">Login here</Link>
+      </p>
     </form>
   );
 }

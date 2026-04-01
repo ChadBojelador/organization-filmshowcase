@@ -1,7 +1,13 @@
 import AppRoutes from "./AppRoutes";
+import Navigation from "./components/Navigation";
 
 function App() {
-  return <AppRoutes />;
+  return (
+    <>
+      <Navigation />
+      <AppRoutes />
+    </>
+  );
 }
 
 export default App;

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import "./LoginForm.css";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
 
@@ -41,46 +42,47 @@ function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mx-auto w-full max-w-md space-y-4 rounded-xl bg-white p-6 shadow-md">
-      <h2 className="text-xl font-semibold text-slate-900">Director Login</h2>
+    <form onSubmit={handleSubmit} className="login-form card">
+      <h2>Director Login</h2>
 
-      <div className="space-y-1">
-        <label className="block text-sm font-medium text-slate-700" htmlFor="email">
-          Email
-        </label>
+      <div className="form-group">
+        <label htmlFor="email">Email</label>
         <input
           id="email"
           type="email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           required
-          className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+          placeholder="your@email.com"
         />
       </div>
 
-      <div className="space-y-1">
-        <label className="block text-sm font-medium text-slate-700" htmlFor="password">
-          Password
-        </label>
+      <div className="form-group">
+        <label htmlFor="password">Password</label>
         <input
           id="password"
           type="password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           required
-          className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+          placeholder="••••••••"
         />
       </div>
 
-      {error ? <p className="text-sm text-rose-600">{error}</p> : null}
+      {error && <div className="alert alert-error">{error}</div>}
 
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white disabled:cursor-not-allowed disabled:opacity-70"
+        className="btn btn-primary"
+        style={{ width: "100%" }}
       >
         {isLoading ? "Logging in..." : "Login"}
       </button>
+
+      <p className="text-center text-secondary mt-2">
+        Don't have an account? <Link to="/register">Register here</Link>
+      </p>
     </form>
   );
 }
