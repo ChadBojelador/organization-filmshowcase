@@ -2,12 +2,14 @@ import { toGoogleDrivePosterUrl, toGoogleDriveVideoEmbedUrl } from "../utils/gdr
 
 function FilmCard({ film }) {
   const {
+    filmTitle,
     title,
     teamName,
     members = [],
     posterLink,
     videoLink,
   } = film;
+  const displayTitle = filmTitle || title || "Untitled Film";
 
   const posterUrl = toGoogleDrivePosterUrl(posterLink);
   const videoUrl = toGoogleDriveVideoEmbedUrl(videoLink);
@@ -16,13 +18,13 @@ function FilmCard({ film }) {
     <article className="overflow-hidden rounded-xl bg-white shadow-md">
       <img
         src={posterUrl}
-        alt={`${title} poster`}
+        alt={`${displayTitle} poster`}
         className="h-52 w-full rounded-t-xl object-cover sm:h-56"
         loading="lazy"
       />
 
       <div className="space-y-2 p-4">
-        <h2 className="line-clamp-2 text-lg font-semibold text-slate-900">{title}</h2>
+        <h2 className="line-clamp-2 text-lg font-semibold text-slate-900">{displayTitle}</h2>
         <p className="text-sm text-slate-600">
           Team: <span className="font-medium text-slate-800">{teamName}</span>
         </p>
@@ -39,7 +41,7 @@ function FilmCard({ film }) {
         <div className="overflow-hidden rounded-lg bg-black">
           <iframe
             src={videoUrl}
-            title={`${title} video`}
+            title={`${displayTitle} video`}
             className="h-48 w-full sm:h-56"
             allow="autoplay; fullscreen"
             allowFullScreen
