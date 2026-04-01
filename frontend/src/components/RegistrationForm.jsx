@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 const emptyMember = { name: '', role: '' };
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
 export default function RegistrationForm() {
   const [form, setForm] = useState({
@@ -45,7 +46,7 @@ export default function RegistrationForm() {
     setSuccess('');
 
     try {
-      const response = await fetch('http://localhost:5000/register', {
+      const response = await fetch(`${API_BASE_URL}/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
