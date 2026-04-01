@@ -2,7 +2,7 @@
 
 ## F1 – FilmGrid Component
 Task: Build FilmGrid component
-Docs: 01_overview.md, 04_frontend.md
+Docs: 01_overview.md, 04_frontend_components.md
 Input: 3–6 sample films
 Output:
 - Maps FilmCard in responsive grid
@@ -11,7 +11,7 @@ Output:
 
 ## F2 – FilmCard Component
 Task: Build FilmCard component
-Docs: 01_overview.md, 04_frontend.md, 05_gdrive_handling.md
+Docs: 01_overview.md, 04_frontend_components.md, 05_gdrive_handling.md
 Input: Film object (title, teamName, members[], posterLink, videoLink)
 Output:
 - Poster image
@@ -30,7 +30,7 @@ Output: Proper embed (video) and direct (poster) URLs
 
 ## F4 – GET /films API
 Task: Implement GET /films
-Docs: 02_data_models.md, 03_api.md
+Docs: 02_data_models.md, 03_api_endpoints.md
 Input: None
 Output:
 - Returns all films (public)
@@ -38,7 +38,7 @@ Output:
 
 ## F5 – Registration + POST /register
 Task: Registration system
-Docs: 02_data_models.md, 06_auth.md
+Docs: 02_data_models.md, 06_auth_protocols.md
 Input: teamName, email, password, members[] (name + role)
 Output:
 - React registration form capturing teamName, email, password, members list with roles
@@ -47,7 +47,7 @@ Output:
 
 ## F6 – Login + POST /login
 Task: Login system
-Docs: 06_auth.md
+Docs: 06_auth_protocols.md
 Input: email, password
 Output:
 - React login form
@@ -56,7 +56,7 @@ Output:
 
 ## F7 – POST /submit Endpoint
 Task: Film submission
-Docs: 02_data_models.md, 05_gdrive_handling.md, 07_submission.md
+Docs: 02_data_models.md, 05_gdrive_handling.md, 07_submission_rules.md
 Input: filmTitle, videoLink, posterLink, JWT
 Output:
 - Backend route saving film
@@ -66,7 +66,7 @@ Output:
 
 ## F8 – Protect Submission with JWT
 Task: JWT middleware
-Docs: 06_auth.md, 07_submission.md
+Docs: 06_auth_protocols.md, 07_submission_rules.md
 Input: Authorization header with JWT
 Output:
 - Middleware verifying token and attaching user to request
@@ -74,12 +74,12 @@ Output:
 
 ## F9 – Responsive Layout Improvements
 Task: Improve responsiveness
-Docs: 04_frontend.md
+Docs: 04_frontend_components.md
 Input: Existing FilmGrid + FilmCard + Forms
 Output: Updated responsive React components with Tailwind
 
 ## F10 – Admin / Moderation (Optional)
 Task: Admin approval workflow
-Docs: 03_api.md, 07_submission.md
+Docs: 03_api_endpoints.md, 07_submission_rules.md
 Input: List of unapproved films, admin actions
 Output: Backend + frontend routes for approving/rejecting films
