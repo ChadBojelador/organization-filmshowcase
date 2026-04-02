@@ -79,7 +79,7 @@
   height: 200px;
   overflow: hidden;
   border-radius: 0.5rem;
-  background-color: #000;
+  background-color: var(--theme-surface-2);
   margin-top: auto;
 }
 

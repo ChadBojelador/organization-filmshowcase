@@ -1,25 +1,54 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./Navigation.css";
+import { clearStoredAuth, getStoredAuth, fetchCurrentUser } from "../utils/auth";
 
 function Navigation() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [director, setDirector] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const directorData = localStorage.getItem("director");
-    if (token && directorData) {
-      setIsAuthenticated(true);
-      setDirector(JSON.parse(directorData));
-    }
-  }, []);
+    let isMounted = true;
+
+    const syncAuthState = async () => {
+      const storedAuth = getStoredAuth();
+
+      if (!storedAuth.token) {
+        if (isMounted) {
+          setIsAuthenticated(false);
+          setDirector(null);
+        }
+        return;
+      }
+
+      const user = storedAuth.director || (await fetchCurrentUser());
+
+      if (!isMounted) {
+        return;
+      }
+
+      if (user) {
+        setIsAuthenticated(true);
+        setDirector(user);
+        return;
+      }
+
+      setIsAuthenticated(false);
+      setDirector(null);
+    };
+
+    syncAuthState();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [location.pathname]);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("director");
+    clearStoredAuth();
     setIsAuthenticated(false);
     setDirector(null);
     setMobileMenuOpen(false);

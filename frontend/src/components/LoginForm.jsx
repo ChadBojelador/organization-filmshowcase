@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./LoginForm.css";
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+import { apiFetch } from "../utils/api";
+import { setStoredAuth } from "../utils/auth";
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ function LoginForm() {
     setError("");
 
     try {
-      const response = await fetch(`${API_BASE_URL}/login`, {
+      const response = await apiFetch("/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -31,8 +31,7 @@ function LoginForm() {
         throw new Error(data.error || "Login failed.");
       }
 
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("director", JSON.stringify(data.user));
+      setStoredAuth({ token: data.token, user: data.user });
       navigate("/submit", { replace: true });
     } catch (err) {
       setError(err.message || "Login failed.");

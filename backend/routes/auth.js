@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const authMiddleware = require('../middleware/auth');
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET || 'dev_secret_change_me';
@@ -11,7 +12,8 @@ function buildTokenPayload(user) {
     userId: user._id,
     teamName: user.teamName,
     email: user.email,
-    members: user.members
+    members: user.members,
+    role: 'director'
   };
 }
 
@@ -51,7 +53,8 @@ router.post('/register', async (req, res) => {
         id: user._id,
         teamName: user.teamName,
         email: user.email,
-        members: user.members
+        members: user.members,
+        role: 'director'
       }
     });
   } catch (error) {
@@ -86,13 +89,26 @@ router.post('/login', async (req, res) => {
         id: user._id,
         teamName: user.teamName,
         email: user.email,
-        members: user.members
+        members: user.members,
+        role: 'director'
       }
     });
   } catch (error) {
     console.error('Login error:', error);
     return res.status(500).json({ error: 'Failed to login user' });
   }
+});
+
+router.get('/me', authMiddleware, async (req, res) => {
+  return res.status(200).json({
+    user: {
+      id: req.user.userId,
+      teamName: req.user.teamName,
+      email: req.user.email,
+      members: req.user.members,
+      role: 'director'
+    }
+  });
 });
 
 module.exports = router;

@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './RegistrationForm.css';
+import { apiFetch } from '../utils/api';
+import { setStoredAuth } from '../utils/auth';
 
 const emptyMember = { name: '', role: '' };
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
 export default function RegistrationForm() {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ export default function RegistrationForm() {
     setSuccess('');
 
     try {
-      const response = await fetch(`${API_BASE_URL}/register`, {
+      const response = await apiFetch('/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
@@ -61,8 +62,7 @@ export default function RegistrationForm() {
         throw new Error(data.error || 'Registration failed');
       }
 
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('director', JSON.stringify(data.user));
+      setStoredAuth({ token: data.token, user: data.user });
       setSuccess('Registration successful! Redirecting...');
       setTimeout(() => navigate('/submit', { replace: true }), 1500);
     } catch (submitError) {
