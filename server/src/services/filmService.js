@@ -380,9 +380,35 @@ async function editFilm(filmId, payload) {
   return mapFilmRowToDto(data);
 }
 
+async function incrementViews(filmId) {
+  const client = getSupabaseClient();
+
+  // If no Supabase client, silently skip — fallback data has no DB
+  if (!client) return;
+
+  const { error } = await client.rpc("increment_film_views", { film_id: filmId });
+
+  // Fallback: manual increment if RPC not available
+  if (error) {
+    const { data: current } = await client
+      .from("Films")
+      .select("views")
+      .eq("id", filmId)
+      .single();
+
+    if (current) {
+      await client
+        .from("Films")
+        .update({ views: (current.views || 0) + 1 })
+        .eq("id", filmId);
+    }
+  }
+}
+
 module.exports = {
   listFilms,
   createFilm,
   removeFilm,
   editFilm,
+  incrementViews,
 };

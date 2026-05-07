@@ -235,6 +235,14 @@ function Dashboard() {
   const [selectedFilm, setSelectedFilm] = useState(null);
   const heroVideoRef = useRef(null);
 
+  const handleFilmClick = (film) => {
+    // Fire-and-forget: ping the view endpoint without blocking the modal
+    if (film?.id) {
+      apiRequest(`/api/films/${film.id}/view`, { method: "PATCH" }).catch(() => {});
+    }
+    setSelectedFilm(film);
+  };
+
   useEffect(() => {
     const tryPlay = () => {
       const video = heroVideoRef.current;
@@ -441,7 +449,7 @@ function Dashboard() {
                         title={film.title}
                         thumbnailUrl={film.thumbnailUrl}
                         description={film.description}
-                        onClick={() => setSelectedFilm(film)}
+                        onClick={() => handleFilmClick(film)}
                       />
                     ))}
                   </div>
@@ -455,7 +463,7 @@ function Dashboard() {
                   films={section.films}
                   isLoading={isLoading}
                   fullWidth={isMostViewed}
-                  onFilmClick={(film) => setSelectedFilm(film)}
+                  onFilmClick={handleFilmClick}
                 />
               )}
             </section>

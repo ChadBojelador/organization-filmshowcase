@@ -46,9 +46,10 @@ function AppLayout({ children }) {
               <h3 className="text-xl font-semibold text-white">Contact Us</h3>
               <a
                 href="mailto:iintessalangilan@g.batstate-u.edu.ph"
-                className="mt-3 flex items-center gap-3 text-sm text-zinc-400 transition hover:text-white"
+                className="mt-3 flex items-center gap-3 text-sm text-zinc-400
+                           transition-[color,gap] duration-200 ease-out hover:gap-4 hover:text-white"
               >
-                <EnvelopeIcon className="h-5 w-5 flex-shrink-0" />
+                <EnvelopeIcon className="h-5 w-5 flex-shrink-0 transition-transform duration-200 group-hover:scale-110" />
                 <span>iintessalangilan@g.batstate-u.edu.ph</span>
               </a>
             </div>

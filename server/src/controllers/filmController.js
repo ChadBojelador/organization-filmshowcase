@@ -1,4 +1,4 @@
-const { createFilm, listFilms, removeFilm, editFilm } = require("../services/filmService");
+const { createFilm, listFilms, removeFilm, editFilm, incrementViews } = require("../services/filmService");
 
 async function getFilms(req, res) {
   const films = await listFilms();
@@ -35,9 +35,15 @@ async function updateFilm(req, res) {
   });
 }
 
+async function recordView(req, res) {
+  await incrementViews(req.params.id);
+  return res.status(200).json({ success: true });
+}
+
 module.exports = {
   getFilms,
   addFilm,
   deleteFilm,
   updateFilm,
+  recordView,
 };
