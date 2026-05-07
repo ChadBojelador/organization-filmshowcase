@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Build output
+client/dist/
+
+# Environment variables (NEVER commit these)
+.env
+.env.local
+.env.production
+client/.env
+server/.env
+
+# Vercel
+.vercel/
+
+# Misc
+.DS_Store
+*.log
