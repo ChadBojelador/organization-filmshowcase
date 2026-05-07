@@ -3,6 +3,7 @@ import Login from "../components/Login";
 import Register from "../components/Register";
 import Dashboard from "../pages/Dashboard";
 import AdminDashboard from "../pages/AdminDashboard";
+import ErrorPage from "../pages/ErrorPage";
 
 const TOKEN_KEY = "token";
 
@@ -57,7 +58,7 @@ function AppRoutes() {
           }
         />
         <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
   );

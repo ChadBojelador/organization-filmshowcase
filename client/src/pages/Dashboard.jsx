@@ -269,7 +269,6 @@ function Dashboard() {
 
     const fetchFilms = async () => {
       setIsLoading(true);
-      setError("");
 
       try {
         const payload = await apiRequest("/api/films");
@@ -284,8 +283,6 @@ function Dashboard() {
       } finally {
         if (isActive) {
           setIsLoading(false);
-          // Signal the startup loader that films are ready
-          window.dispatchEvent(new Event("festorama:ready"));
         }
       }
     };
