@@ -321,7 +321,7 @@ function Dashboard() {
     <AppLayout>
       <div className="space-y-8">
         <section className="relative left-1/2 right-1/2 w-screen -translate-x-1/2 overflow-hidden">
-          <div className="relative h-[42vh] w-full sm:h-[72vh] lg:h-[88vh]">
+          <div className="relative h-[52vh] w-full sm:h-[72vh] lg:h-[88vh]">
             <video
               ref={heroVideoRef}
               autoPlay
@@ -370,45 +370,44 @@ function Dashboard() {
             <div className="relative z-10 grid h-full grid-cols-1">
               <div className="flex flex-col justify-end p-4 sm:p-8 lg:p-10">
                 <div className="w-full max-w-3xl rounded-2xl bg-gradient-to-r from-black/65 via-black/35 to-transparent p-3 text-white backdrop-blur-[1px] sm:p-6">
-                  <p className="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-200 drop-shadow sm:text-sm">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-cyan-200 drop-shadow xs:tracking-[0.35em] sm:text-sm">
                     FESTORAMA
                   </p>
-                  <h1 className="mt-2 text-2xl font-semibold uppercase tracking-tight text-white drop-shadow sm:mt-3 sm:text-5xl lg:text-6xl">
-                    LIGHTS, CAMERA, ADVOCATE!
+                  <h1 className="mt-1.5 text-xl font-semibold uppercase leading-tight tracking-tight text-white drop-shadow xs:text-2xl sm:mt-3 sm:text-5xl lg:text-6xl">
+                    LIGHTS, CAMERA,{" "}
+                    <span className="block xs:inline">ADVOCATE!</span>
                   </h1>
                   <p className="mt-2 hidden max-w-2xl text-sm text-slate-100 drop-shadow sm:mt-4 sm:block sm:text-base">
                     A brand-new stage for creators to launch stories, build with code, and advocate for communities.
                   </p>
-                  <div className="mt-3 flex items-center gap-2 sm:mt-6 sm:gap-3">
+                  <div className="mt-2.5 flex flex-wrap items-center gap-1.5 sm:mt-6 sm:gap-3">
                   <a
                     href={HERO_TRAILER_SOURCE_URL}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-md border border-cyan-300/40 bg-cyan-400/20 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-cyan-100 transition hover:bg-cyan-300/30 sm:px-5 sm:py-2.5 sm:text-sm sm:gap-2"
+                    className="inline-flex items-center gap-1 rounded-md border border-cyan-300/40 bg-cyan-400/20 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.1em] text-cyan-100 transition hover:bg-cyan-300/30 xs:gap-1.5 xs:text-[10px] sm:gap-2 sm:px-5 sm:py-2.5 sm:text-sm"
                   >
-                    <PlayIcon className="h-3.5 w-3.5 sm:h-5 sm:w-5" />
-                    Watch the trailer
+                    <PlayIcon className="h-3 w-3 xs:h-3.5 xs:w-3.5 sm:h-5 sm:w-5" />
+                    Watch trailer
                   </a>
                   <button
                     type="button"
                     onClick={() => setIsMuted((prev) => !prev)}
-                    className="rounded-md border border-white/40 bg-white/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-white/20 sm:px-5 sm:py-2.5 sm:text-sm"
+                    className="rounded-md border border-white/40 bg-white/10 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.1em] text-white transition hover:bg-white/20 xs:text-[10px] sm:px-5 sm:py-2.5 sm:text-sm"
                   >
                     {isMuted ? "Unmute" : "Mute"}
                   </button>
-                  <div className="relative">
-                    <button
-                      type="button"
-                      onMouseEnter={() => setIsAboutOpen(true)}
-                      onMouseLeave={() => setIsAboutOpen(false)}
-                      onFocus={() => setIsAboutOpen(true)}
-                      onBlur={() => setIsAboutOpen(false)}
-                      className="rounded-md border border-white/40 bg-white/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-white/20 sm:px-5 sm:py-2.5 sm:text-sm"
-                    >
-                      <span className="sm:hidden">About</span>
-                      <span className="hidden sm:inline">About FESTORAMA</span>
-                    </button>
-                  </div>
+                  <button
+                    type="button"
+                    onMouseEnter={() => setIsAboutOpen(true)}
+                    onMouseLeave={() => setIsAboutOpen(false)}
+                    onFocus={() => setIsAboutOpen(true)}
+                    onBlur={() => setIsAboutOpen(false)}
+                    className="rounded-md border border-white/40 bg-white/10 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.1em] text-white transition hover:bg-white/20 xs:text-[10px] sm:px-5 sm:py-2.5 sm:text-sm"
+                  >
+                    <span className="sm:hidden">About</span>
+                    <span className="hidden sm:inline">About FESTORAMA</span>
+                  </button>
                   </div>
                 </div>
               </div>
