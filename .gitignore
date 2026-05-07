@@ -16,6 +16,9 @@ server/.env
 # Vercel
 .vercel/
 
+# Original (uncompressed) poster backups
+client/public/posters-originals/
+
 # Misc
 .DS_Store
 *.log
