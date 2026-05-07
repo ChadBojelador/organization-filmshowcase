@@ -381,15 +381,15 @@ function Dashboard() {
                     href={HERO_TRAILER_SOURCE_URL}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-md border border-cyan-300/40 bg-cyan-400/20 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-cyan-100 transition hover:bg-cyan-300/30 sm:px-5 sm:py-2.5 sm:text-sm"
+                    className="inline-flex items-center gap-1.5 rounded-md border border-cyan-300/40 bg-cyan-400/20 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-cyan-100 transition hover:bg-cyan-300/30 sm:px-5 sm:py-2.5 sm:text-sm sm:gap-2"
                   >
-                    <PlayIcon className="h-5 w-5" />
+                    <PlayIcon className="h-3.5 w-3.5 sm:h-5 sm:w-5" />
                     Watch the trailer
                   </a>
                   <button
                     type="button"
                     onClick={() => setIsMuted((prev) => !prev)}
-                    className="rounded-md border border-white/40 bg-white/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-white/20 sm:px-5 sm:py-2.5 sm:text-sm"
+                    className="rounded-md border border-white/40 bg-white/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-white/20 sm:px-5 sm:py-2.5 sm:text-sm"
                   >
                     {isMuted ? "Unmute" : "Mute"}
                   </button>
@@ -400,7 +400,7 @@ function Dashboard() {
                       onMouseLeave={() => setIsAboutOpen(false)}
                       onFocus={() => setIsAboutOpen(true)}
                       onBlur={() => setIsAboutOpen(false)}
-                      className="rounded-md border border-white/40 bg-white/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-white/20 sm:px-5 sm:py-2.5 sm:text-sm"
+                      className="rounded-md border border-white/40 bg-white/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-white/20 sm:px-5 sm:py-2.5 sm:text-sm"
                     >
                       About FESTORAMA
                     </button>
