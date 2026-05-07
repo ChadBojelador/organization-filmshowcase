@@ -1,0 +1,349 @@
+/* ============================================================
+   FESTORAMA — Cinematic Film Loading Screen
+   ============================================================ */
+
+/* ---------- Root overlay ---------- */
+.flg-root {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #050507;
+  overflow: hidden;
+}
+
+.flg-root--exit {
+  animation: flg-exit 0.7s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+@keyframes flg-exit {
+  0%   { opacity: 1; transform: scale(1); }
+  60%  { opacity: 1; transform: scale(1.04); }
+  100% { opacity: 0; transform: scale(1.1); pointer-events: none; }
+}
+
+/* ---------- Film-grain overlay ---------- */
+.flg-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: 0.55;
+  mix-blend-mode: overlay;
+  animation: flg-grain-shift 0.08s steps(1) infinite;
+}
+
+@keyframes flg-grain-shift {
+  0%  { background-position: 0 0; }
+  20% { background-position: -30px 15px; }
+  40% { background-position: 20px -20px; }
+  60% { background-position: -15px 30px; }
+  80% { background-position: 25px 10px; }
+}
+
+/* ---------- Spotlight ---------- */
+.flg-spotlight {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 55% 70% at 50% 42%,
+    rgba(0, 200, 255, 0.06) 0%,
+    rgba(0, 0, 0, 0.0) 60%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+  animation: flg-spotlight-breathe 4s ease-in-out infinite;
+}
+
+@keyframes flg-spotlight-breathe {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.06); }
+}
+
+/* ---------- Film strips container ---------- */
+.flg-strips-container {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow: hidden;
+  opacity: 0.22;
+}
+
+/* ---------- Individual strip track ---------- */
+.flg-strip-track {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  transform: translateY(var(--offset-y, 0));
+}
+
+.flg-strip-track[data-dir="left"] .flg-strip-inner {
+  animation: flg-scroll-left var(--speed, 28s) linear infinite;
+}
+
+.flg-strip-track[data-dir="right"] .flg-strip-inner {
+  animation: flg-scroll-right var(--speed, 28s) linear infinite;
+}
+
+@keyframes flg-scroll-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes flg-scroll-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+.flg-strip-inner {
+  display: flex;
+  flex-shrink: 0;
+  /* 2× so we can loop seamlessly */
+  width: 200%;
+}
+
+/* ---------- Single film frame ---------- */
+.flg-frame {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 130px;
+  margin: 0 3px;
+  border: 1.5px solid #2a2a2a;
+  background: #0c0c0e;
+  border-radius: 2px;
+}
+
+/* ---------- Perforations ---------- */
+.flg-perfs {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 3px 6px;
+  background: #111114;
+}
+
+.flg-hole {
+  display: block;
+  width: 10px;
+  height: 7px;
+  border-radius: 2px;
+  background: #050507;
+  border: 1px solid #1e1e22;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.6);
+}
+
+/* ---------- Frame image ---------- */
+.flg-frame-img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  background: #0c0c0e;
+}
+
+.flg-frame-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(0.6) brightness(0.75);
+}
+
+/* ---------- Vignette ---------- */
+.flg-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 80% 80% at 50% 50%,
+    transparent 30%,
+    rgba(5, 5, 7, 0.7) 80%,
+    rgba(5, 5, 7, 0.95) 100%
+  );
+}
+
+/* ---------- HUD (center content) ---------- */
+.flg-hud {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  padding: 0 24px;
+  animation: flg-hud-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes flg-hud-in {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ---------- Clapperboard icon ---------- */
+.flg-clapper {
+  width: 54px;
+  margin-bottom: 4px;
+  animation: flg-clap 2.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  transform-origin: bottom center;
+}
+
+@keyframes flg-clap {
+  0%, 85%, 100% { transform: rotate(0deg); }
+  30%           { transform: rotate(-22deg); }
+  40%           { transform: rotate(0deg); }
+  50%           { transform: rotate(-10deg); }
+  55%           { transform: rotate(0deg); }
+}
+
+.flg-clapper-top {
+  height: 14px;
+  background: repeating-linear-gradient(
+    -45deg,
+    #1a1a1d 0px,
+    #1a1a1d 4px,
+    #f0c040 4px,
+    #f0c040 8px
+  );
+  border-radius: 3px 3px 0 0;
+  border: 1.5px solid #2c2c30;
+}
+
+.flg-clapper-body {
+  background: #1c1c20;
+  border: 1.5px solid #2c2c30;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.flg-clapper-stripe {
+  height: 3px;
+  background: #2e2e35;
+  border-radius: 2px;
+}
+
+/* ---------- Brand ---------- */
+.flg-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 2px;
+}
+
+.flg-logo {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(1.1);
+}
+
+.flg-brand-name {
+  font-family: "Inter", "Segoe UI", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: #e8f0fe;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 20px rgba(0, 200, 255, 0.4),
+    0 0 60px rgba(0, 200, 255, 0.15);
+}
+
+/* ---------- Tagline ---------- */
+.flg-tagline {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(0, 200, 255, 0.75);
+}
+
+/* ---------- Progress bar ---------- */
+.flg-bar-wrap {
+  width: min(340px, 80vw);
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 99px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.flg-bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #00b4d8 0%, #90e0ef 100%);
+  box-shadow: 0 0 10px rgba(0, 180, 216, 0.7);
+  transition: width 0.25s ease-out;
+  position: relative;
+}
+
+/* Shimmer on the bar */
+.flg-bar-fill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: flg-shimmer 1.4s linear infinite;
+}
+
+@keyframes flg-shimmer {
+  from { background-position: -200% center; }
+  to   { background-position: 200% center; }
+}
+
+/* ---------- Status message ---------- */
+.flg-msg {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.45);
+  animation: flg-msg-fade 0.35s ease-out both;
+}
+
+@keyframes flg-msg-fade {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Percentage ---------- */
+.flg-pct {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: rgba(0, 200, 255, 0.5);
+  text-transform: uppercase;
+  margin-top: -4px;
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .flg-strip-track[data-dir="left"] .flg-strip-inner,
+  .flg-strip-track[data-dir="right"] .flg-strip-inner,
+  .flg-grain,
+  .flg-spotlight,
+  .flg-clapper,
+  .flg-bar-fill::after {
+    animation: none;
+  }
+}
