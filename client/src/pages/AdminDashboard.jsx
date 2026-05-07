@@ -37,7 +37,13 @@ function AdminDashboard() {
 
   const token = localStorage.getItem("token");
 
+  // Safety-net auth guard — ProtectedRoute already handles this, but
+  // this ensures a stale/empty localStorage can't reach the admin UI.
   useEffect(() => {
+    if (!token) {
+      navigate("/login", { replace: true });
+      return;
+    }
     loadFilms();
   }, []);
 
@@ -157,7 +163,7 @@ function AdminDashboard() {
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
           <div className="flex items-center gap-4">
             <button
-              onClick={() => navigate("/dashboard")}
+              onClick={() => navigate("/")}
               className="flex items-center gap-1.5 rounded-lg border border-zinc-700/50 bg-zinc-800/50 px-3 py-1.5 text-xs font-medium text-zinc-300 transition hover:bg-zinc-700/50 hover:text-white"
             >
               <ArrowLeftIcon className="h-3.5 w-3.5" />

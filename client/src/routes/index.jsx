@@ -17,7 +17,7 @@ function hasToken() {
 
 function GuestOnlyRoute({ children }) {
   if (hasToken()) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return children;
@@ -31,16 +31,14 @@ function ProtectedRoute({ children }) {
   return children;
 }
 
-function HomeRedirect() {
-  return <Navigate to="/dashboard" replace />;
-}
-
 function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomeRedirect />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        {/* Default URL — renders Dashboard at "/" so the URL stays clean */}
+        <Route path="/" element={<Dashboard />} />
+        {/* Keep /dashboard as an alias so existing bookmarks still work */}
+        <Route path="/dashboard" element={<Navigate to="/" replace />} />
         <Route
           path="/login"
           element={
@@ -57,7 +55,15 @@ function AppRoutes() {
             </GuestOnlyRoute>
           }
         />
-        <Route path="/admin" element={<AdminDashboard />} />
+        {/* Admin is now protected — unauthenticated users are redirected to /login */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
