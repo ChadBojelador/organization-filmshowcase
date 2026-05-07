@@ -19,9 +19,9 @@ function getWrappedDistance(index, activeIndex, total) {
 }
 
 function getStepSize(viewportWidth) {
-  if (viewportWidth < 640) return 165;
-  if (viewportWidth < 1024) return 225;
-  return 275;
+  if (viewportWidth < 640) return 210;
+  if (viewportWidth < 1024) return 240;
+  return 285;
 }
 
 export default function Carousel({ films = [], isLoading = false, fullWidth = false, onFilmClick }) {
@@ -152,7 +152,7 @@ export default function Carousel({ films = [], isLoading = false, fullWidth = fa
             <div
               key={`${film.id ?? film.title}-${film.thumbnailUrl}`}
               aria-hidden={absDistance !== 0}
-              className="absolute left-1/2 top-1/2 w-[52vw] max-w-[190px] min-w-[150px] transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] sm:w-[34vw] md:w-[24vw] lg:w-[190px]"
+              className="absolute left-1/2 top-1/2 w-[44vw] max-w-[190px] min-w-[140px] transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] sm:w-[32vw] md:w-[22vw] lg:w-[185px]"
               style={{
                 transform: `translate(-50%, -50%) translateX(${translateX}px)`,
                 opacity: isVisible ? opacity : 0,
