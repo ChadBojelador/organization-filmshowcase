@@ -376,7 +376,7 @@ function Dashboard() {
                   <p className="mt-2 hidden max-w-2xl text-sm text-slate-100 drop-shadow sm:mt-4 sm:block sm:text-base">
                     A brand-new stage for creators to launch stories, build with code, and advocate for communities.
                   </p>
-                  <div className="mt-3 flex flex-wrap gap-2 sm:mt-6 sm:gap-3">
+                  <div className="mt-3 flex items-center gap-2 sm:mt-6 sm:gap-3">
                   <a
                     href={HERO_TRAILER_SOURCE_URL}
                     target="_blank"
@@ -402,7 +402,8 @@ function Dashboard() {
                       onBlur={() => setIsAboutOpen(false)}
                       className="rounded-md border border-white/40 bg-white/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-white/20 sm:px-5 sm:py-2.5 sm:text-sm"
                     >
-                      About FESTORAMA
+                      <span className="sm:hidden">About</span>
+                      <span className="hidden sm:inline">About FESTORAMA</span>
                     </button>
                   </div>
                   </div>
