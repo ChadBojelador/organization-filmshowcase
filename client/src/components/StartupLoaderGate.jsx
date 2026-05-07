@@ -6,18 +6,22 @@
 import { useEffect, useRef, useState } from "react";
 import FilmLoadingScreen from "./FilmLoadingScreen";
 
-const MAX_WAIT_MS = 5500; // hard cap so it never hangs forever
+const MAX_WAIT_MS = 5500;  // hard cap so it never hangs forever
+const EXIT_ANIM_MS = 750;  // matches .flg-root--exit animation duration
 
 function StartupLoaderGate({ children }) {
   const [ready, setReady] = useState(false);   // films loaded signal
   const [visible, setVisible] = useState(true); // loader on screen
   const timerRef = useRef(null);
+  const exitRef = useRef(null);
 
   useEffect(() => {
     // Listen for Dashboard to announce it's done
     const handleReady = () => {
       clearTimeout(timerRef.current);
       setReady(true);
+      // Unmount after the CSS exit animation finishes
+      exitRef.current = setTimeout(() => setVisible(false), EXIT_ANIM_MS);
     };
 
     window.addEventListener("festorama:ready", handleReady);
@@ -28,13 +32,9 @@ function StartupLoaderGate({ children }) {
     return () => {
       window.removeEventListener("festorama:ready", handleReady);
       clearTimeout(timerRef.current);
+      clearTimeout(exitRef.current);
     };
   }, []);
-
-  // Once the exit animation finishes (~700ms after ready), unmount the loader
-  const handleExitEnd = () => {
-    if (ready) setVisible(false);
-  };
 
   return (
     <>
@@ -42,11 +42,7 @@ function StartupLoaderGate({ children }) {
       {children}
 
       {/* Overlay the loader on top */}
-      {visible && (
-        <div onAnimationEnd={handleExitEnd}>
-          <FilmLoadingScreen onDone={ready ? true : null} />
-        </div>
-      )}
+      {visible && <FilmLoadingScreen onDone={ready ? true : null} />}
     </>
   );
 }

@@ -283,6 +283,8 @@ function Dashboard() {
       } finally {
         if (isActive) {
           setIsLoading(false);
+          // Signal the loading screen that films are ready
+          window.dispatchEvent(new Event("festorama:ready"));
         }
       }
     };
