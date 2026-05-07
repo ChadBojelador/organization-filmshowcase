@@ -321,7 +321,7 @@ function Dashboard() {
     <AppLayout>
       <div className="space-y-8">
         <section className="relative left-1/2 right-1/2 w-screen -translate-x-1/2 overflow-hidden">
-          <div className="relative h-[88vh] w-full">
+          <div className="relative h-[55vh] w-full sm:h-[72vh] lg:h-[88vh]">
             <video
               ref={heroVideoRef}
               autoPlay
@@ -365,23 +365,23 @@ function Dashboard() {
             </div>
 
             <div className="relative z-10 grid h-full grid-cols-1">
-              <div className="flex flex-col justify-end p-6 sm:p-8 lg:p-10">
-                <div className="w-full max-w-3xl rounded-2xl bg-gradient-to-r from-black/65 via-black/35 to-transparent p-4 text-white backdrop-blur-[1px] sm:p-6">
+              <div className="flex flex-col justify-end p-4 sm:p-8 lg:p-10">
+                <div className="w-full max-w-3xl rounded-2xl bg-gradient-to-r from-black/65 via-black/35 to-transparent p-3 text-white backdrop-blur-[1px] sm:p-6">
                   <p className="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-200 drop-shadow sm:text-sm">
                     FESTORAMA
                   </p>
-                  <h1 className="mt-3 text-4xl font-semibold uppercase tracking-tight text-white drop-shadow sm:text-5xl lg:text-6xl">
+                  <h1 className="mt-2 text-2xl font-semibold uppercase tracking-tight text-white drop-shadow sm:mt-3 sm:text-5xl lg:text-6xl">
                     LIGHTS, CAMERA, ADVOCATE!
                   </h1>
-                  <p className="mt-4 max-w-2xl text-sm text-slate-100 drop-shadow sm:text-base">
+                  <p className="mt-2 hidden max-w-2xl text-sm text-slate-100 drop-shadow sm:mt-4 sm:block sm:text-base">
                     A brand-new stage for creators to launch stories, build with code, and advocate for communities.
                   </p>
-                  <div className="mt-6 flex flex-wrap gap-3">
+                  <div className="mt-3 flex flex-wrap gap-2 sm:mt-6 sm:gap-3">
                   <a
                     href={HERO_TRAILER_SOURCE_URL}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-md border border-cyan-300/40 bg-cyan-400/20 px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.12em] text-cyan-100 transition hover:bg-cyan-300/30"
+                    className="inline-flex items-center gap-2 rounded-md border border-cyan-300/40 bg-cyan-400/20 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-cyan-100 transition hover:bg-cyan-300/30 sm:px-5 sm:py-2.5 sm:text-sm"
                   >
                     <PlayIcon className="h-5 w-5" />
                     Watch the trailer
@@ -389,7 +389,7 @@ function Dashboard() {
                   <button
                     type="button"
                     onClick={() => setIsMuted((prev) => !prev)}
-                    className="rounded-md border border-white/40 bg-white/10 px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-white/20"
+                    className="rounded-md border border-white/40 bg-white/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-white/20 sm:px-5 sm:py-2.5 sm:text-sm"
                   >
                     {isMuted ? "Unmute" : "Mute"}
                   </button>
@@ -400,7 +400,7 @@ function Dashboard() {
                       onMouseLeave={() => setIsAboutOpen(false)}
                       onFocus={() => setIsAboutOpen(true)}
                       onBlur={() => setIsAboutOpen(false)}
-                      className="rounded-md border border-white/40 bg-white/10 px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-white/20"
+                      className="rounded-md border border-white/40 bg-white/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-white/20 sm:px-5 sm:py-2.5 sm:text-sm"
                     >
                       About FESTORAMA
                     </button>
