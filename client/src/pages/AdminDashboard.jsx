@@ -41,7 +41,7 @@ function AdminDashboard() {
   // this ensures a stale/empty localStorage can't reach the admin UI.
   useEffect(() => {
     if (!token) {
-      navigate("/login", { replace: true });
+      navigate("/", { replace: true });
       return;
     }
     loadFilms();
@@ -153,7 +153,7 @@ function AdminDashboard() {
 
   function handleLogout() {
     localStorage.removeItem("token");
-    navigate("/login", { replace: true });
+    navigate("/", { replace: true });
   }
 
   return (
