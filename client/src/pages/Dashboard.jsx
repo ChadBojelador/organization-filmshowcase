@@ -321,7 +321,7 @@ function Dashboard() {
     <AppLayout>
       <div className="space-y-8">
         <section className="relative left-1/2 right-1/2 w-screen -translate-x-1/2 overflow-hidden">
-          <div className="relative h-[55vh] w-full sm:h-[72vh] lg:h-[88vh]">
+          <div className="relative h-[42vh] w-full sm:h-[72vh] lg:h-[88vh]">
             <video
               ref={heroVideoRef}
               autoPlay
@@ -338,11 +338,14 @@ function Dashboard() {
                 event.currentTarget.currentTime = 0;
                 event.currentTarget.play().catch(() => {});
               }}
-              className="absolute inset-0 h-full w-full object-cover"
+              className="absolute inset-0 h-full w-full object-cover object-[center_20%] sm:object-center"
               poster={HERO_TRAILER_THUMBNAIL_URL}
             >
               <source src={HERO_TRAILER_SOURCE_URL} type="video/mp4" />
             </video>
+
+            {/* Bottom gradient — stronger on mobile for text readability */}
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-3/4 bg-gradient-to-t from-black/90 via-black/50 to-transparent sm:h-2/3 sm:from-black/70 sm:via-black/30" />
 
             <div
               className={`pointer-events-none absolute inset-0 z-20 flex items-center justify-center bg-black/70 p-6 transition duration-200 sm:p-10 ${
