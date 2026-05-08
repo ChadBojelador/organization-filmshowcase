@@ -8,6 +8,7 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import AppLayout from "./components/AppLayout";
 import Dashboard from "./pages/Dashboard";
 
@@ -100,6 +101,7 @@ function App() {
 
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
+      <SpeedInsights />
     </BrowserRouter>
   );
 }
